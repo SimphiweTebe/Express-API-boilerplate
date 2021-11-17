@@ -1,0 +1,31 @@
+.card{
+
+    position: relative;
+    border: 2px solid #efefef;
+    padding: 3rem 1rem;
+    width: 100%;
+
+    &__name{
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+    &__model{
+        font-size: 1.4rem;
+        background-color: #efefef;
+        padding: .3rem;
+        margin-bottom: 1rem;
+        border-radius: .3rem;
+        color: #acacac;
+    }
+    &__name{
+        font-weight: 600;
+    }
+
+    @media screen and (min-width: 720px){
+        width: 48%;
+    }
+    @media screen and (min-width: 920px){
+        width: 32%;
+    }
+
+}

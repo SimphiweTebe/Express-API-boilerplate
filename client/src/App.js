@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from 'react'
+import axios from 'axios';
+import Card from './components/Card';
+import Form from './components/Form';
 
 function App() {
+
+  const [cars, setCars] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  useEffect(()=>{
+    fetchData();
+  },[])
+
+  const fetchData = async ()=> {
+
+    setLoading(true)
+    try {
+        const newCars = await axios.get('/api/cars')
+        setCars(newCars.data)
+        setLoading(false)
+    } catch (err) {
+        setError(err)
+        setLoading(false)
+        console.log(err);
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section className="app__container">
+      <h1 className="app__title">Jeep Cars</h1>
+      <Form />
+      <div className="card__wrapper">
+        {
+          cars ? cars.map(car => (
+            <Card car={car} key={car._id}/>
+          )) : <div className="loading">loading...</div>
+        }
+        {
+          error && <h3>{error}</h3>
+        }
+      </div>
+    </section>
   );
 }
 

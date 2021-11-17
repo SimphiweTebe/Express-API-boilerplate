@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const dbConnect = require('./config/dbConnect');
+const path = require('path');
 
 const carRoutes = require('./routes/carRoutes');
 
@@ -13,6 +14,6 @@ app.use(express.json())
 app.get('/', (req, res) => { res.send('api v1')})
 app.use('/api/cars', carRoutes)
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 app.listen(PORT, ()=> console.log(`App running on ${PORT}`))

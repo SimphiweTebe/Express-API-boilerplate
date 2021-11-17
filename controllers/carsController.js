@@ -4,8 +4,8 @@ exports.createCar = async (req,res) => {
 
     const newCar = new Car(req.body)
     try {
-        const car = await newCar.save();
-        res.status(201).json(car)
+        await newCar.save();
+        res.status(201).json({ status: 'success', message: 'Car created successfully'})
     } catch (error) {
         console.log(error)
     }
@@ -21,10 +21,9 @@ exports.getAllCars = async (req,res) => {
 }
 
 exports.getSingleCar = async (req,res) => {
-    
-    const carId = req.params.id;
+
     try {
-        const car = await Car.findById(carId)
+        const car = await Car.findById(req.params.id)
         res.status(200).json(car)
     } catch (error) {
         console.log(error)
@@ -33,10 +32,9 @@ exports.getSingleCar = async (req,res) => {
 
 exports.updateCar = async (req,res) => {
 
-    const carId = req.params.id;
     try {
-        const car = await Car.findOneAndUpdate({_id: carId}, req.body, { new: true })
-        res.status(201).json(car)
+        await Car.findOneAndUpdate({_id: req.params.id}, req.body, { new: true })
+        res.status(201).json({ status: 'success', message: 'Car updated successfully'})
     } catch (error) {
         console.log(error)
     }
@@ -44,10 +42,9 @@ exports.updateCar = async (req,res) => {
 
 exports.deleteCar = async (req,res) => {
     
-    const carId = req.params.id;
     try {
-        const car = await Car.findByIdAndDelete(carId)
-        res.status(201).json(car)
+        await Car.findByIdAndDelete(req.params.id)
+        res.status(201).json({ status: 'success', message: 'Car deleted successfully'})
     } catch (error) {
         console.log(error)
     }

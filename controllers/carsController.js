@@ -34,7 +34,7 @@ exports.updateCar = async (req,res) => {
 
     try {
         await Car.findOneAndUpdate({_id: req.params.id}, req.body, { new: true })
-        res.status(201).json({ status: 'success', message: 'Car updated successfully'})
+        res.status(200).json({ status: 'success', message: 'Car updated successfully'})
     } catch (error) {
         console.log(error)
     }
@@ -44,7 +44,7 @@ exports.deleteCar = async (req,res) => {
     
     try {
         await Car.findByIdAndDelete(req.params.id)
-        res.status(201).json({ status: 'success', message: 'Car deleted successfully'})
+        res.status(204).json({ status: 'success', message: 'Car deleted successfully'})
     } catch (error) {
         console.log(error)
     }
